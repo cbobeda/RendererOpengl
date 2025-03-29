@@ -2,7 +2,7 @@
 
 #version 460 core
 
-layout(location = 0) in vec2 position;
+layout(location = 0) in vec3 position;
 layout(location = 1) in vec3 inColor;
 
 out vec3 fragColor;
@@ -10,9 +10,14 @@ out vec3 fragColor;
 uniform float u_Time;
 void main()
 {
-    mat2 rot = mat2(cos(u_Time),-sin(u_Time),sin(u_Time),cos(u_Time));
+    mat3 rot = mat3(
+    1.0,       0.0,        0.0,
+    0.0,  cos(u_Time), -sin(u_Time),
+    0.0,  sin(u_Time),  cos(u_Time)
+    );
+
     float offest = sin(u_Time) * 0.5f;
-    gl_Position = vec4(vec2(position.x /*+ offest*/, position.y) * rot, 0.0, 1.0);
+    gl_Position = vec4(vec3(position.x /*+ offest*/, position.y, position.z) * rot, 1.0);
     fragColor = inColor;
 }
 #shader fragment

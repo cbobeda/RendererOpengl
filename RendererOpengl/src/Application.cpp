@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 
+
 struct ShaderProgramSource
 {
     std::string vertexSource;
@@ -117,18 +118,17 @@ int main(void)
 
     std::cout << glGetString(GL_VERSION) << std::endl;
 
-    constexpr int nbInfos = 5; /*(x, y, r, g, b) for each vertex*/
+    constexpr int nbInfos = 6; /*(x, y, z, r, g, b) for each vertex*/
     constexpr int nbVerticies = 4;
 
     constexpr int bufferSize = nbInfos * nbVerticies;
     float verticies[bufferSize] = {
-        /*x, y, r, g, b*/
-        -0.5f,  0.5f, 1.0f, 0.0f, 0.0f, /*Vertex 1 (Red)*/
-        -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, /*Vertex 2 (Green)*/
-         0.5f,  0.5f, 0.0f, 0.0f, 1.0f, /*Vertex 3 (Blue)*/
-         0.5f, -0.5f, 1.0f, 1.0f, 0.0f  /*Vertex 4 (Yellow)*/
+        /*x, y, z, r, g, b*/
+        -0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 0.0f, /*Vertex 1 (Red)*/
+        -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, /*Vertex 2 (Green)*/
+         0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 1.0f, /*Vertex 3 (Blue)*/
+         0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f,  /*Vertex 4 (Yellow)*/
     };
-
 
     unsigned int buffer;
     glGenBuffers(1, &buffer);
@@ -138,10 +138,10 @@ int main(void)
 
     /*positions sent to the shader*/
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 5, 0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(float) * nbInfos, 0);
 
     /*colors sent to the shader*/
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(2 * sizeof(float)));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, nbInfos * sizeof(float), (void*)(3 * sizeof(float)));
     glEnableVertexAttribArray(1);
 
     ShaderProgramSource source = parseShader("res/shaders/Basic.shader");
