@@ -103,7 +103,7 @@ int main(void)
         return -1;
 
     /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(640, 480, "Renderer OpenGL", NULL, NULL);
+    window = glfwCreateWindow(600, 600, "Renderer OpenGL", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -123,11 +123,11 @@ int main(void)
 
     constexpr int bufferSize = nbInfos * nbVerticies;
     float verticies[bufferSize] = {
-        /*x, y, z, r, g, b*/
-        -0.5f,  0.5f, -0.5f, 1.0f, 0.0f, 0.0f, /*Vertex 1 (Red)*/
-        -0.5f, -0.5f, -0.5f, 0.0f, 1.0f, 0.0f, /*Vertex 2 (Green)*/
-         0.5f,  0.5f, -0.5f, 0.0f, 0.0f, 1.0f, /*Vertex 3 (Blue)*/
-         0.5f, -0.5f, -0.5f, 1.0f, 1.0f, 0.0f,  /*Vertex 4 (Yellow)*/
+        /*position*/           /*color*/
+        -0.5f,  0.5f, -0.5f,   1.0f, 0.0f, 0.0f, /*Vertex 1 (Red)*/
+        -0.5f, -0.5f, -0.5f,   0.0f, 1.0f, 0.0f, /*Vertex 2 (Green)*/
+         0.5f,  0.5f, -0.5f,   0.0f, 0.0f, 1.0f, /*Vertex 3 (Blue)*/
+         0.5f, -0.5f, -0.5f,   1.0f, 1.0f, 0.0f,  /*Vertex 4 (Yellow)*/
     };
 
     unsigned int buffer;
